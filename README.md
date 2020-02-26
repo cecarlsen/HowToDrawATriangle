@@ -1,7 +1,7 @@
 How to draw a triangle
-==========
+======================
 
-A number of examples showing different ways of drawing a triangle procedurally in Unity.
+Examples showing different ways of procedurally drawing a triangle in Unity.
 
 - Gimzos
 - GL class
@@ -11,7 +11,7 @@ A number of examples showing different ways of drawing a triangle procedurally i
 
 
 Todo
--------
+----
 - Package DOTS + Mesh
 - Package HDRP + ComputeBuffer + DrawProcedural
 - Package URP + ComputeBuffer + DrawProcedural
