@@ -1,20 +1,20 @@
 How to draw a triangle
 ======================
 
-Examples showing different ways of procedurally drawing a triangle in Unity.
+Examples showing different ways of procedurally drawing a triangle in Unity. Made for educational purposes. Made with Unity 2019.3.1.
 
 - Gimzos
 - GL class
 - Mesh
 - ComputeBuffer + DrawProcedural
-- Package UI
+- UI (Package)
 
 
 Todo
 ----
-- Package DOTS + Mesh
-- Package HDRP + ComputeBuffer + DrawProcedural
-- Package URP + ComputeBuffer + DrawProcedural
+- DOTS (Package) + Mesh
+- HDRP (Package) + ComputeBuffer + DrawProcedural
+- URP (Package) + ComputeBuffer + DrawProcedural
 
 
 License
