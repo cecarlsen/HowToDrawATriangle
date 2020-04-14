@@ -1,5 +1,5 @@
 ﻿
-Shader "Hidden/DrawProceduralDemo"
+Shader "Hidden/DrawProceduralNowDemo"
 {
 	CGINCLUDE
 			

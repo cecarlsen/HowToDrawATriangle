@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-public class DrawProceduralDemo : MonoBehaviour
+public class DrawProceduralNowDemo : MonoBehaviour
 {
 	const int vertCount = 3;
 
@@ -28,7 +28,7 @@ public class DrawProceduralDemo : MonoBehaviour
 
 		_buffer = new ComputeBuffer( vertCount, sizeof(float)*4 );
 
-		_computeShader = Instantiate( (ComputeShader) Resources.Load( GetType().Name ) );
+		_computeShader = Instantiate( Resources.Load<ComputeShader>( GetType().Name ) );
 		_awakeKernel = _computeShader.FindKernel( "Awake" );
 		_updateKernel = _computeShader.FindKernel( "Update" );
 
