@@ -4,12 +4,15 @@
 */
 
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GLDemo : MonoBehaviour
 {
 	Vector3[] _vertices;
 	Material _material;
 
+	const string urpAssetTypeName = "UniversalRenderPipelineAsset"; // So we avoid having to import UnityEngine.Rendering.Universal
+	const string hdrpAssetTypeName = "HDRenderPipelineAsset";
 
 	void Awake()
 	{
@@ -21,7 +24,22 @@ public class GLDemo : MonoBehaviour
 		};
 
 		// Create material.
-		_material = new Material( Shader.Find( "Hidden/" + GetType().Name ) );
+		_material = new Material( Shader.Find( "Hidden/" + nameof( GLDemo ) ) );
+	}
+
+
+	void OnEnable()
+	{
+		if( GraphicsSettings.renderPipelineAsset == null ) Camera.onPostRender += OnPostRenderCamera; 
+		else if( GraphicsSettings.renderPipelineAsset.GetType().Name == urpAssetTypeName ) RenderPipelineManager.endCameraRendering += EndCameraRendering;
+		else Debug.LogWarning( "RenderPipeline of type " + GraphicsSettings.renderPipelineAsset.GetType().Name + " is not supported.\n" );
+	}
+
+
+	void OnDisable()
+	{
+		if( GraphicsSettings.renderPipelineAsset == null ) Camera.onPostRender -= OnPostRenderCamera;
+		else if( GraphicsSettings.renderPipelineAsset.GetType().Name == urpAssetTypeName ) RenderPipelineManager.endCameraRendering -= EndCameraRendering;
 	}
 
 
@@ -35,14 +53,34 @@ public class GLDemo : MonoBehaviour
 	}
 
 
-	void OnRenderObject()
+	void OnPostRenderCamera( Camera cam )
+	{
+		if( CheckFilter( cam ) ) DrawLines();
+	}
+
+
+
+	void EndCameraRendering( ScriptableRenderContext src, Camera camera )
+	{
+		Debug.Log( src );
+		if( CheckFilter( camera ) ) DrawLines();
+	}
+	
+
+	bool CheckFilter( Camera camera )
+	{
+		return ( camera.cullingMask & ( 1 << gameObject.layer ) ) != 0;
+	}
+
+
+	void DrawLines()
 	{
 		// Draw vertices.
 		_material.SetPass( 0 );
 		GL.Begin( GL.TRIANGLES );
 		GL.Color( Color.yellow );
 		for( int v = 0; v < _vertices.Length; v++ ) {
-			GL.Vertex( _vertices[v] );
+			GL.Vertex( _vertices[ v ] );
 		}
 		GL.End();
 	}
