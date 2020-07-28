@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 614591092}
   - component: {fileID: 614591091}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas (Comments)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -259,7 +259,7 @@ RectTransform:
   m_Children:
   - {fileID: 1936431618}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -548,7 +548,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The GL class Supports Built In and Universal Render Pipeline.
+  m_Text: The GL class Supports Built In and (Partially) Universal Render Pipeline.
 --- !u!222 &1936431620
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -567,7 +567,7 @@ PrefabInstance:
     - target: {fileID: 6492260652234712800, guid: d74f85c4906ab4a4896e1daec00b80b8,
         type: 3}
       propertyPath: _pipeline
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6492260652234712801, guid: d74f85c4906ab4a4896e1daec00b80b8,
         type: 3}
@@ -607,7 +607,7 @@ PrefabInstance:
     - target: {fileID: 6492260652234712801, guid: d74f85c4906ab4a4896e1daec00b80b8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6492260652234712801, guid: d74f85c4906ab4a4896e1daec00b80b8,
         type: 3}
