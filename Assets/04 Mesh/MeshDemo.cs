@@ -20,13 +20,16 @@ public class MeshDemo : MonoBehaviour
 			Quaternion.AngleAxis( 1/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
 		};
 
-		// Create mesh and set content.
+		// Create mesh and markt it dynamic, to tell Unity that we will update the verticies continously.
 		_mesh = new Mesh();
+		_mesh.MarkDynamic();
+
+		// Set verticies and indices.
 		_mesh.vertices = _vertices;
 		_mesh.triangles = new int[]{ 0, 1, 2 };
 
 		// Create material.
-		Material material = new Material( Shader.Find( "Hidden/" + GetType().Name ) );
+		Material material = new Material( Shader.Find( "Hidden/" + nameof( MeshDemo ) ) );
 
 		// Create necessary components and set references.
 		MeshFilter filter = gameObject.AddComponent<MeshFilter>();

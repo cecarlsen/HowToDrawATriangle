@@ -8,9 +8,9 @@ using UnityEngine.Rendering;
 
 public class RenderPipelineSwitcher : MonoBehaviour
 {
-	[SerializeField] Pipeline _pipeline;
-	[SerializeField] RenderPipelineAsset _urpAsset;
-	[SerializeField] RenderPipelineAsset _hdrpAsset;
+	[SerializeField] Pipeline _pipeline = Pipeline.BuiltIn;
+	[SerializeField] RenderPipelineAsset _urpAsset = null;
+	[SerializeField] RenderPipelineAsset _hdrpAsset = null;
 
 	public enum Pipeline
 	{
