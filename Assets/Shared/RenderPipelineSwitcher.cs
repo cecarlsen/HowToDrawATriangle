@@ -22,15 +22,21 @@ public class RenderPipelineSwitcher : MonoBehaviour
 
 	void OnValidate()
 	{
+		// At the time of writing (2021.2.14), QualitySettings is overriding GraphicsSettings, so yuo have to change both, in that order.
+		// This will probably change in the future.
+		// https://forum.unity.com/threads/bug-change-of-urp-asset-do-not-work.1055405/
 		switch( _pipeline )
 		{
 			case Pipeline.BuiltIn:
+				QualitySettings.renderPipeline = null;
 				GraphicsSettings.renderPipelineAsset = null;
 				break;
 			case Pipeline.Universal:
+				QualitySettings.renderPipeline = _urpAsset;
 				GraphicsSettings.renderPipelineAsset = _urpAsset;
 				break;
 			case Pipeline.HighDefinition:
+				QualitySettings.renderPipeline = _hdrpAsset;
 				GraphicsSettings.renderPipelineAsset = _hdrpAsset;
 				break;
 		}

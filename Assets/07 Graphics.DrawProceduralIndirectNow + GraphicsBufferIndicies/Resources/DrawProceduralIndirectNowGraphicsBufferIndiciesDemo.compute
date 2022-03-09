@@ -27,14 +27,14 @@ float4 QuaternionAngleAxis( float angle, float3 axis )
 // Source: http://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
 float3 QuaternionRotateVector( float4 rot, float3 vec )
 {
-    // Extract the vector and scalar part of the quaternion
-    float3 u = rot.xyz;
-    float s = rot.w;
+	// Extract the vector and scalar part of the quaternion
+	float3 u = rot.xyz;
+	float s = rot.w;
 
-    // Do the math
-    return 2.0f * dot( u, vec ) * u
-          + (s*s - dot( u, u )) * vec
-          + 2.0f * s * cross( u, vec );
+	// Do the math
+	return 2.0f * dot( u, vec ) * u
+		  + (s*s - dot( u, u )) * vec
+		  + 2.0f * s * cross( u, vec );
 }
 
 
@@ -63,5 +63,5 @@ void Update( uint id : SV_DispatchThreadID )
 	vertex = QuaternionRotateVector( deltaRotation, vertex );
 
 	// Write.
-	_Buffer[id] = float4( vertex, 1 );
+	_Buffer[id] = float4( vertex, 1.0 );
 }

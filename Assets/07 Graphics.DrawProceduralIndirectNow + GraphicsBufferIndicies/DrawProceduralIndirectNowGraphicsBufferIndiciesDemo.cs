@@ -50,6 +50,7 @@ public class DrawProceduralIndirectNowGraphicsBufferIndiciesDemo : MonoBehaviour
 	{
 		_buffer.Release();
 		_drawArgsBuffer.Release();
+		_indexBuffer.Release();
 	}
 
 

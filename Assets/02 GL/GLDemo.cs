@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright © Carl Emil Carlsen 2020
+	Copyright © Carl Emil Carlsen 2020-2022
 	http://cec.dk
 */
 
@@ -62,7 +62,6 @@ public class GLDemo : MonoBehaviour
 
 	void EndCameraRendering( ScriptableRenderContext src, Camera camera )
 	{
-		Debug.Log( src );
 		if( CheckFilter( camera ) ) DrawLines();
 	}
 	
