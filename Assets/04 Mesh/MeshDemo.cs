@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright © Carl Emil Carlsen 2020
+	Copyright © Carl Emil Carlsen 2020-2022
 	http://cec.dk
 */
 
@@ -9,33 +9,35 @@ public class MeshDemo : MonoBehaviour
 {
 	Vector3[] _vertices;
 	Mesh _mesh;
+	Material _material;
 
 
 	void Awake()
 	{
-		// Create vertices.
+		// Create mesh.
+		_mesh = new Mesh();
+		_mesh.name = GetType().Name;
+
+		// Mark it dynamic, to tell Unity that we will update the verticies continously.
+		_mesh.MarkDynamic();
+
+		// Set verticies and indices.
 		_vertices = new Vector3[]{
 			Quaternion.AngleAxis( 0/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
 			Quaternion.AngleAxis( 2/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
 			Quaternion.AngleAxis( 1/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
 		};
-
-		// Create mesh and markt it dynamic, to tell Unity that we will update the verticies continously.
-		_mesh = new Mesh();
-		_mesh.MarkDynamic();
-
-		// Set verticies and indices.
 		_mesh.vertices = _vertices;
 		_mesh.triangles = new int[]{ 0, 1, 2 };
 
 		// Create material.
-		Material material = new Material( Shader.Find( "Hidden/" + nameof( MeshDemo ) ) );
+		_material = new Material( Shader.Find( "Hidden/" + GetType().Name ) );
+	}
 
-		// Create necessary components and set references.
-		MeshFilter filter = gameObject.AddComponent<MeshFilter>();
-		MeshRenderer render = gameObject.AddComponent<MeshRenderer>();
-		filter.sharedMesh = _mesh;
-		render.material = material;
+
+	void OnDestroy()
+	{
+		Destroy( _material );
 	}
 
 
@@ -43,11 +45,12 @@ public class MeshDemo : MonoBehaviour
 	{
 		// Update vertices.
 		Quaternion rotation = Quaternion.Euler( 0, 0, 360/8f * Time.deltaTime );
-		for( int v = 0; v < _vertices.Length; v++ ) {
-			_vertices[v] = rotation * _vertices[v];
-		}
+		for( int v = 0; v < _vertices.Length; v++ ) _vertices[v] = rotation * _vertices[v];
 
 		// Apply to mesh.
 		_mesh.vertices = _vertices;
+
+		// Draw.
+		Graphics.DrawMesh( _mesh, Matrix4x4.identity, _material, gameObject.layer );
 	}
 }

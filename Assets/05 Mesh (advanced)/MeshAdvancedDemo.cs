@@ -1,8 +1,8 @@
 ﻿/*
-	Copyright © Carl Emil Carlsen 2020
+	Copyright © Carl Emil Carlsen 2020-2022
 	http://cec.dk
 
-	Using the new Mash API (2020).
+	Using the new Mash API introduced in 2020.
 */
 
 using UnityEngine;
@@ -12,6 +12,7 @@ public class MeshAdvancedDemo : MonoBehaviour
 {
 	Vector3[] _vertices;
 	Mesh _mesh;
+	Material _material;
 
 	const MeshUpdateFlags meshFlags = MeshUpdateFlags.DontRecalculateBounds | MeshUpdateFlags.DontValidateIndices;
 
@@ -49,13 +50,13 @@ public class MeshAdvancedDemo : MonoBehaviour
 		_mesh.SetIndexBufferData( new ushort[]{ 0, 1, 2 }, 0, 0, 3, meshFlags );
 
 		// Create material (from shader located in Resources folder).
-		Material material = new Material( Shader.Find( "Hidden/" + nameof( MeshDemo ) ) );
+		_material = new Material( Shader.Find( "Hidden/" + GetType().Name ) );
+	}
 
-		// Create necessary components and set references.
-		MeshFilter filter = gameObject.AddComponent<MeshFilter>();
-		MeshRenderer render = gameObject.AddComponent<MeshRenderer>();
-		filter.sharedMesh = _mesh;
-		render.material = material;
+
+	void OnDestroy()
+	{
+		Destroy( _material );
 	}
 
 
@@ -63,11 +64,12 @@ public class MeshAdvancedDemo : MonoBehaviour
 	{
 		// Update vertices.
 		Quaternion rotation = Quaternion.Euler( 0, 0, 360/8f * Time.deltaTime );
-		for( int v = 0; v < _vertices.Length; v++ ) {
-			_vertices[v] = rotation * _vertices[v];
-		}
+		for( int v = 0; v < _vertices.Length; v++ ) _vertices[v] = rotation * _vertices[v];
 
 		// Apply to mesh.
 		_mesh.SetVertexBufferData( _vertices, 0, 0, _vertices.Length, 0, meshFlags );
+
+		// Draw.
+		Graphics.DrawMesh( _mesh, Matrix4x4.identity, _material, gameObject.layer );
 	}
 }

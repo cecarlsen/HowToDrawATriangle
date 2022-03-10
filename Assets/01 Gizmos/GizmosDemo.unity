@@ -413,9 +413,10 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Gizmos are only rendered in the Editor, but works with all Render Pipelines.
+  m_Text: "<b>Gizmos</b>\nGizmos are used for in-Editor debug graphics.\n\n<b>Compatibility</b>\n\t-
+    Editor only\n\t- All render pipelines\n"
 --- !u!222 &1844445238
 CanvasRenderer:
   m_ObjectHideFlags: 0

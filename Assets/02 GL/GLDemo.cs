@@ -14,6 +14,7 @@ public class GLDemo : MonoBehaviour
 	const string urpAssetTypeName = "UniversalRenderPipelineAsset"; // So we avoid having to import UnityEngine.Rendering.Universal
 	const string hdrpAssetTypeName = "HDRenderPipelineAsset";
 
+
 	void Awake()
 	{
 		// Create vertices.
@@ -25,6 +26,12 @@ public class GLDemo : MonoBehaviour
 
 		// Create material.
 		_material = new Material( Shader.Find( "Hidden/" + nameof( GLDemo ) ) );
+	}
+
+
+	void OnDestroy()
+	{
+		Destroy( _material );
 	}
 
 
@@ -47,26 +54,23 @@ public class GLDemo : MonoBehaviour
 	{
 		// Update vertices.
 		Quaternion rotation = Quaternion.Euler( 0, 0, 360/8f * Time.deltaTime );
-		for( int v = 0; v < _vertices.Length; v++ ) {
-			_vertices[v] = rotation * _vertices[v];
-		}
+		for( int v = 0; v < _vertices.Length; v++ ) _vertices[v] = rotation * _vertices[v];
 	}
 
 
-	void OnPostRenderCamera( Camera cam )
+	void OnPostRenderCamera( Camera camera )
 	{
-		if( CheckFilter( cam ) ) DrawLines();
+		if( MatchingCullingMask( camera ) ) DrawLines();
 	}
-
 
 
 	void EndCameraRendering( ScriptableRenderContext src, Camera camera )
 	{
-		if( CheckFilter( camera ) ) DrawLines();
+		if( MatchingCullingMask( camera ) ) DrawLines();
 	}
 	
 
-	bool CheckFilter( Camera camera )
+	bool MatchingCullingMask( Camera camera )
 	{
 		return ( camera.cullingMask & ( 1 << gameObject.layer ) ) != 0;
 	}
@@ -74,13 +78,10 @@ public class GLDemo : MonoBehaviour
 
 	void DrawLines()
 	{
-		// Draw vertices.
 		_material.SetPass( 0 );
 		GL.Begin( GL.TRIANGLES );
 		GL.Color( Color.yellow );
-		for( int v = 0; v < _vertices.Length; v++ ) {
-			GL.Vertex( _vertices[ v ] );
-		}
+		foreach( var vertex in _vertices ) GL.Vertex( vertex );
 		GL.End();
 	}
 }
