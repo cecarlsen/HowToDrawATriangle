@@ -8,6 +8,9 @@
 
 #define TWO_PI 6.2831852
 
+RWStructuredBuffer<float4> _Vertices; // Some graphics cards has faster R/W if size is multiple of float4.
+float _DeltaTime;
+
 
 // QuaternionAngleAxis.
 // Craetes a rotation of angle (radians) around axis.
@@ -27,41 +30,37 @@ float4 QuaternionAngleAxis( float angle, float3 axis )
 // Source: http://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
 float3 QuaternionRotateVector( float4 rot, float3 vec )
 {
-    // Extract the vector and scalar part of the quaternion
-    float3 u = rot.xyz;
-    float s = rot.w;
+	// Extract the vector and scalar part of the quaternion
+	float3 u = rot.xyz;
+	float s = rot.w;
 
-    // Do the math
-    return 2.0f * dot( u, vec ) * u
-          + (s*s - dot( u, u )) * vec
-          + 2.0f * s * cross( u, vec );
+	// Do the math
+	return 2.0f * dot( u, vec ) * u
+		  + (s*s - dot( u, u )) * vec
+		  + 2.0f * s * cross( u, vec );
 }
 
 
-RWStructuredBuffer<float4> _Buffer;
-float _DeltaTime;
-
-
 [numthreads(1,1,1)]
-void Awake( uint id : SV_DispatchThreadID )
+void Awake( uint ti : SV_DispatchThreadID )
 {
-	float angle = TWO_PI - id / 3.0 * TWO_PI;
+	float angle = TWO_PI - ti / 3.0 * TWO_PI;
 	float4 rotation = QuaternionAngleAxis( angle, float3( 0, 0, 1 ) );
 	float3 vertex = QuaternionRotateVector( rotation, float3( 0, 0.5, 0 ) );
-	_Buffer[id] = float4( vertex, 1 );
+	_Vertices[ ti ] = float4( vertex, 1 );
 }
 
 
 [numthreads(1,1,1)]
-void Update( uint id : SV_DispatchThreadID )
+void Update( uint ti : SV_DispatchThreadID )
 {
 	// Read.
-	float3 vertex = _Buffer[id].xyz;
+	float3 vertex = _Vertices[ ti ].xyz;
 	
 	// Compute and apply delta rotation.
 	float4 deltaRotation = QuaternionAngleAxis( TWO_PI / 8.0 * _DeltaTime, float3( 0, 0, 1 ) );
 	vertex = QuaternionRotateVector( deltaRotation, vertex );
 
 	// Write.
-	_Buffer[id] = float4( vertex, 1 );
+	_Vertices[ ti ] = float4( vertex, 1 );
 }

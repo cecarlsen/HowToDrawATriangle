@@ -10,13 +10,13 @@ Shader "Hidden/DrawProceduralNowDemo"
 		float4 vertex : SV_POSITION;
 	};
 	
-	StructuredBuffer<float4> _Buffer;
+	StructuredBuffer<float4> _Vertices;
 	
 	
-	ToFrag Vert( uint id : SV_VertexID )
+	ToFrag Vert( uint vi : SV_VertexID )
 	{
 		ToFrag o;
-		o.vertex = UnityObjectToClipPos( _Buffer[id] );
+		o.vertex = UnityObjectToClipPos( _Vertices[ vi ] );
 		return o;
 	}
 	

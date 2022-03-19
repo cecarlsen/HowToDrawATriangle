@@ -415,8 +415,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "<b>Gizmos</b>\nGizmos are used for in-Editor debug graphics.\n\n<b>Compatibility</b>\n\t-
-    Editor only\n\t- All render pipelines\n"
+  m_Text: "<b>Gizmos</b>\nGizmos is an immediate mode drawing API used for in-Editor
+    debug graphics.\nEnable \"Gizmos\" in the upper right corner of this panel and
+    hit play.\n\n<b>Compatibility</b>\n\t- Editor only\n\t- All render pipelines\n"
 --- !u!222 &1844445238
 CanvasRenderer:
   m_ObjectHideFlags: 0

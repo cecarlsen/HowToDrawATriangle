@@ -1,0 +1,72 @@
+﻿/*
+	Copyright © Carl Emil Carlsen 2019
+	http://cec.dk
+*/
+
+#pragma kernel Awake
+#pragma kernel Update
+
+#define TWO_PI 6.2831852
+#define VERTEX_32BIT_STRIDE 6 // float3 position, float3 normal, 
+
+RWByteAddressBuffer _Indices;
+RWByteAddressBuffer _Vertices;
+
+float _DeltaTime;
+
+
+// QuaternionAngleAxis.
+// Craetes a rotation of angle (radians) around axis.
+float4 QuaternionAngleAxis( float angle, float3 axis )
+{ 
+	if( angle == 0 ) return float4( 0, 0, 0, 1 );
+	float4 q;
+	float s, c;
+	sincos( angle * 0.5, s, c );
+	q.xyz = axis * s;
+	q.w = c;
+	return q;
+}
+
+
+// QuaternionRotateVector.
+// Source: http://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
+float3 QuaternionRotateVector( float4 rot, float3 vec )
+{
+	// Extract the vector and scalar part of the quaternion
+	float3 u = rot.xyz;
+	float s = rot.w;
+
+	// Do the math
+	return 2.0f * dot( u, vec ) * u
+		  + (s*s - dot( u, u )) * vec
+		  + 2.0f * s * cross( u, vec );
+}
+
+
+[numthreads(1,1,1)]
+void Awake( uint ti : SV_DispatchThreadID )
+{
+	float angle = TWO_PI - ti / 3.0 * TWO_PI;
+	float4 rotation = QuaternionAngleAxis( angle, float3( 0, 0, 1 ) );
+	float3 position = QuaternionRotateVector( rotation, float3( 0, 0.5, 0 ) );
+	// Buffer index is accessed by byte offset, so 4 for each 32bit value (float,int,uint...).
+	_Vertices.Store3( ( ti * VERTEX_32BIT_STRIDE ) << 2, asuint( position ) );
+	_Vertices.Store3( ( ti * VERTEX_32BIT_STRIDE + 3 ) << 2, asuint( float3( 0, 0, -1 ) ) );
+	_Indices.Store( ti  << 2, ti );
+}
+
+
+[numthreads(1,1,1)]
+void Update( uint ti : SV_DispatchThreadID )
+{
+	// Read.
+	float3 position = asfloat( _Vertices.Load3( ( ti * VERTEX_32BIT_STRIDE ) << 2 )  );
+	
+	// Compute and apply delta rotation.
+	float4 deltaRotation = QuaternionAngleAxis( TWO_PI / 8.0 * _DeltaTime, float3( 0, 0, 1 ) );
+	position = QuaternionRotateVector( deltaRotation, position );
+
+	// Write.
+	_Vertices.Store3( ( ti.x * VERTEX_32BIT_STRIDE ) << 2, asuint( position ) );
+}

@@ -1,23 +1,24 @@
 How to draw a triangle
 ======================
 
-Examples showing different ways of procedurally drawing a triangle in Unity for educational purposes. Updated to Unity 2021.2.
+Examples showing different ways of procedurally drawing a triangle in Unity. For educational purposes. Updated to Unity 2021.2.
 
 - Gimzos
 - GL class
 - Mesh
-- DrawProceduralNow
-- DrawProceduralIndirectNow
-- DrawProceduralIndirectNow + GraphicBuffer indices
+- Mesh (Advanced)
+- Mesh (GraphicsBuffer)
+- Mesh (GraphicsBuffer + ComputeShader)
+- Graphics.DrawProceduralNow
+- Graphics.DrawProceduralIndirectNow
 - UI (Package)
 
 
 Todo
 ----
-- GraphicBuffer vertices (waiting for public API)
-- DOTS (Package)
-- HDRP (Package)
-- URP (Package)
+- DrawMeshInstanced, DrawMeshInstancedIndirect, DrawMeshInstancedProcedural.
+- Mesh (DOTS/Jobs/NativeArrays)
+- Solutions for HDRP and URP.
 
 
 License

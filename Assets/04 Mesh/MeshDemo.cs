@@ -7,13 +7,22 @@ using UnityEngine;
 
 public class MeshDemo : MonoBehaviour
 {
+	public Material material;
+
+
 	Vector3[] _vertices;
 	Mesh _mesh;
-	Material _material;
 
 
 	void Awake()
 	{
+		// Create vertices.
+		_vertices = new Vector3[]{
+			Quaternion.AngleAxis( 0/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
+			Quaternion.AngleAxis( 2/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
+			Quaternion.AngleAxis( 1/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
+		};
+
 		// Create mesh.
 		_mesh = new Mesh();
 		_mesh.name = GetType().Name;
@@ -21,23 +30,16 @@ public class MeshDemo : MonoBehaviour
 		// Mark it dynamic, to tell Unity that we will update the verticies continously.
 		_mesh.MarkDynamic();
 
-		// Set verticies and indices.
-		_vertices = new Vector3[]{
-			Quaternion.AngleAxis( 0/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
-			Quaternion.AngleAxis( 2/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
-			Quaternion.AngleAxis( 1/3f * 360, Vector3.forward ) *  Vector3.up * 0.5f,
-		};
+		// Set initial mesh data.
 		_mesh.vertices = _vertices;
+		_mesh.normals = new Vector3[]{ Vector3.back, Vector3.back , Vector3.back };
 		_mesh.triangles = new int[]{ 0, 1, 2 };
-
-		// Create material.
-		_material = new Material( Shader.Find( "Hidden/" + GetType().Name ) );
 	}
 
 
 	void OnDestroy()
 	{
-		Destroy( _material );
+		Destroy( _mesh );
 	}
 
 
@@ -51,6 +53,6 @@ public class MeshDemo : MonoBehaviour
 		_mesh.vertices = _vertices;
 
 		// Draw.
-		Graphics.DrawMesh( _mesh, Matrix4x4.identity, _material, gameObject.layer );
+		Graphics.DrawMesh( _mesh, Matrix4x4.identity, material, gameObject.layer );
 	}
 }
