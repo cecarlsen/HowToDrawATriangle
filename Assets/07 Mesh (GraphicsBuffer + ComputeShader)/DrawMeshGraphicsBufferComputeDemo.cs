@@ -26,7 +26,7 @@ public class DrawMeshGraphicsBufferComputeDemo : MonoBehaviour
 		public static int deltaTime = Shader.PropertyToID( "_DeltaTime" );
 	}
 
-
+	
 	void Awake()
 	{
 		int vertexCount = 3;
@@ -35,6 +35,12 @@ public class DrawMeshGraphicsBufferComputeDemo : MonoBehaviour
 		_mesh = new Mesh();
 		_mesh.name = GetType().Name;
 		_mesh.bounds = new Bounds( Vector3.zero, Vector3.one * 1000 );
+
+		// Access Graphic buffers as raw data.
+		_mesh.indexBufferTarget |= GraphicsBuffer.Target.Raw;
+		_mesh.vertexBufferTarget |= GraphicsBuffer.Target.Raw;
+
+		// Note important order: : 1) SetBufferParams, 2) SetSubMesh, 3) GetBuffer.
 		_mesh.SetVertexBufferParams(
 			vertexCount: 3,
 			new VertexAttributeDescriptor( VertexAttribute.Position, VertexAttributeFormat.Float32, 3 ),
@@ -42,13 +48,7 @@ public class DrawMeshGraphicsBufferComputeDemo : MonoBehaviour
 		);
 		_mesh.SetIndexBufferParams( indexCount: vertexCount, IndexFormat.UInt32 );
 		_mesh.SetSubMesh( index: 0, new SubMeshDescriptor( indexStart: 0, vertexCount ), MeshUpdateFlags.DontRecalculateBounds );
-
-		// Access Graphic buffers as raw data.
-		_mesh.indexBufferTarget |= GraphicsBuffer.Target.Raw;
-		_mesh.vertexBufferTarget |= GraphicsBuffer.Target.Raw;
-
-		// Get GraphicBuffers (Mesh will create them internally).
-		_indexBuffer = _mesh.GetIndexBuffer();
+		_indexBuffer = _mesh.GetIndexBuffer(); // Get GraphicBuffers (Mesh will create them internally).
 		_vertexBuffer = _mesh.GetVertexBuffer( index: 0 );
 
 		// Create compute shader.
