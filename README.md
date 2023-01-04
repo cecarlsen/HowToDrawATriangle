@@ -1,7 +1,7 @@
 How to draw a triangle
 ======================
 
-Examples showing different ways of procedurally drawing a triangle in Unity. For educational purposes. Updated to Unity 2021.2.
+Examples showing different ways of procedurally drawing a triangle in Unity. For educational purposes. Updated to Unity 2022.2.
 
 - Gimzos
 - GL class
@@ -24,7 +24,7 @@ Todo
 License
 -------
 
-Copyright (C) 2020-2022 Carl Emil Carlsen
+Copyright (C) 2020-2023 Carl Emil Carlsen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
