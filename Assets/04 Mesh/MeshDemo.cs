@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright © Carl Emil Carlsen 2020-2022
+	Copyright © Carl Emil Carlsen 2020-2023
 	http://cec.dk
 */
 
@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class MeshDemo : MonoBehaviour
 {
-	public Material material;
+	[SerializeField] Material _material = null;
+	public Material material { get { return _material; } set { _material = value; } }
 
 
 	Vector3[] _vertices;

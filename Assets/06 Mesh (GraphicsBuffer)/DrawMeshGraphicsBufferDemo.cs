@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright © Carl Emil Carlsen 2022
+	Copyright © Carl Emil Carlsen 2022-2023
 	http://cec.dk
 */
 
@@ -8,7 +8,8 @@ using UnityEngine.Rendering;
 
 public class DrawMeshGraphicsBufferDemo : MonoBehaviour
 {
-	public Material material;
+	[SerializeField] Material _material = null;
+	public Material material { get { return _material; } set { _material = value; } }
 
 	GraphicsBuffer _vertexBuffer;
 	GraphicsBuffer _indexBuffer;

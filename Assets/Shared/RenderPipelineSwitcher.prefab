@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,6 +44,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a10f7a2b80d435545b329773bf62453f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pipeline: 0
   _urpAsset: {fileID: 11400000, guid: 1fb9daa8245f2b94883287589e1def0c, type: 2}
   _hdrpAsset: {fileID: 11400000, guid: d533751859afd894dbf5490d4946aeab, type: 2}
-  _pipeline: 2
+  _birpMaterial: {fileID: 2100000, guid: 0c250c351188f3b429d4d439538b2040, type: 2}
+  _urpMaterial: {fileID: 2100000, guid: a09ccf1516746f14991d57f58bb77097, type: 2}
+  _hdrpMaterial: {fileID: 2100000, guid: dcfbdc8155dd6cf4e8642f12d6ff87f0, type: 2}
+  _materialEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MeshDemo, Assembly-CSharp
+        m_MethodName: set_material
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

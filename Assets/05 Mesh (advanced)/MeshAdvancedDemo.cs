@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright © Carl Emil Carlsen 2020-2022
+	Copyright © Carl Emil Carlsen 2020-2023
 	http://cec.dk
 
 	Using the new Mash API introduced in 2020.
@@ -10,7 +10,8 @@ using UnityEngine.Rendering;
 
 public class MeshAdvancedDemo : MonoBehaviour
 {
-	public Material material;
+	[SerializeField] Material _material = null;
+	public Material material { get { return _material; } set { _material = value; } }
 
 	Vertex[] _vertices;
 	Mesh _mesh;

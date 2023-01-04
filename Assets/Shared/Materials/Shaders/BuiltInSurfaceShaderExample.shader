@@ -1,4 +1,4 @@
-Shader "Examples/SimpleSurfaceShaderExample"
+Shader "Examples/BuiltInSurfaceShaderExample"
 {
 	Properties
 	{
