@@ -99,3 +99,15 @@ Update Mode: updateDependencies
 The following packages were updated:
   com.unity.render-pipelines.high-definition from version 12.1.5 to 12.1.6
   com.unity.render-pipelines.universal from version 12.1.5 to 12.1.6
+
+=== Wed Jan  4 12:22:09 2023
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.ai.navigation@1.1.1
+The following packages were updated:
+  com.unity.ide.visualstudio from version 2.0.14 to 2.0.16
+  com.unity.render-pipelines.high-definition from version 12.1.6 to 14.0.4
+  com.unity.render-pipelines.universal from version 12.1.6 to 14.0.4

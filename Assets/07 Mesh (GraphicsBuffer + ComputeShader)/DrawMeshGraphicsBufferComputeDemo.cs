@@ -40,7 +40,7 @@ public class DrawMeshGraphicsBufferComputeDemo : MonoBehaviour
 		_mesh.indexBufferTarget |= GraphicsBuffer.Target.Raw;
 		_mesh.vertexBufferTarget |= GraphicsBuffer.Target.Raw;
 
-		// Note important order: : 1) SetBufferParams, 2) SetSubMesh, 3) GetBuffer.
+		// Note important order: 1) SetBufferParams, 2) SetSubMesh, 3) GetBuffer.
 		_mesh.SetVertexBufferParams(
 			vertexCount: 3,
 			new VertexAttributeDescriptor( VertexAttribute.Position, VertexAttributeFormat.Float32, 3 ),
@@ -48,7 +48,7 @@ public class DrawMeshGraphicsBufferComputeDemo : MonoBehaviour
 		);
 		_mesh.SetIndexBufferParams( indexCount: vertexCount, IndexFormat.UInt32 );
 		_mesh.SetSubMesh( index: 0, new SubMeshDescriptor( indexStart: 0, vertexCount ), MeshUpdateFlags.DontRecalculateBounds );
-		_indexBuffer = _mesh.GetIndexBuffer(); // Get GraphicBuffers (Mesh will create them internally).
+		_indexBuffer = _mesh.GetIndexBuffer(); // Get GraphicBuffers (Mesh will create them internally). There are no SetBuffer methods.
 		_vertexBuffer = _mesh.GetVertexBuffer( index: 0 );
 
 		// Create compute shader.
